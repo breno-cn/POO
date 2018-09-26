@@ -17,10 +17,19 @@ public class Forca {
         }
     }
 
+    public int getVida(){
+        return  vida;
+    }
+
      public void insereLetra(String c){
+        boolean encontrado = false;
             for(int i = 0; i < tamanho; i++){
-                if(c.toLowerCase().charAt(0) == frase.toLowerCase().charAt(i)) acerto[i] = true;
+                if(c.toLowerCase().charAt(0) == frase.toLowerCase().charAt(i)){
+                    acerto[i] = true;
+                    encontrado = true;
+                }
             }
+            if(encontrado == false) vida--;
     }
 
     public void escreve(){
@@ -38,14 +47,18 @@ public class Forca {
     }
 
     public static void main(String args[]){
-        Forca forca = new Forca("Raffa Moreira");
+        Forca forca = new Forca("Raffa Moreira Bro");
         Scanner in = new Scanner(System.in);
         String c;
         forca.escreve();
         while(forca.completo() == false){
-            System.out.print("\nDigite uma letra: ");
+            System.out.print("\nVidas: " + forca.getVida() + "\nDigite uma letra: ");
             c = in.nextLine();
             forca.insereLetra(c);
+            if(forca.getVida() == 0){
+                System.out.println("Fim de Jogo!");
+                break;
+            }
             forca.escreve();
         }
     }
